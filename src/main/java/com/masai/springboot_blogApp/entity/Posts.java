@@ -7,18 +7,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Entity
-public class Post {
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
+public class Posts {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer postId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long postId;
 	
 	@NotNull
 	private String title;
@@ -29,20 +28,18 @@ public class Post {
 	@NotNull
 	private String content;
 	
-	@NotNull
 	private LocalDateTime uploadDate;
-	
 	
 	private LocalDateTime updatedDate;
 
 
-	public Post() {
+	public Posts() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 
-	public Post(Integer postId, @NotNull String title, @NotNull String description, @NotNull String content,
+	public Posts(Long postId, @NotNull String title, @NotNull String description, @NotNull String content,
 			@NotNull LocalDateTime uploadDate, LocalDateTime updatedDate) {
 		super();
 		this.postId = postId;
@@ -54,12 +51,12 @@ public class Post {
 	}
 
 
-	public Integer getPostId() {
+	public Long getPostId() {
 		return postId;
 	}
 
 
-	public void setPostId(Integer postId) {
+	public void setPostId(Long postId) {
 		this.postId = postId;
 	}
 
