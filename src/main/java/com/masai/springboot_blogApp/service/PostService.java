@@ -16,6 +16,8 @@ public interface PostService {
 	
 	public String deletePost(Long postId);
 	
+	public List<PostDTO> getPostByTitle(String title);
 	
+	public List<PostDTO> getPostsByDate(Integer year, Integer month, Integer date);
 	
 }

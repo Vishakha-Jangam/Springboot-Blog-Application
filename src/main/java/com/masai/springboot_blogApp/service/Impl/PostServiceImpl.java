@@ -3,6 +3,7 @@ package com.masai.springboot_blogApp.service.Impl;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,32 @@ public class PostServiceImpl implements PostService{
 	}
 
 
+	@Override
+	public List<PostDTO> getPostByTitle(String title) {
+		
+	 List<Post> posts= postRepo.findByTitleContainingIgnoreCase(title);
+	 if(posts.size()==0) {
+		 throw new ResourceNotFoundException("Post","title",title);
+	 }
+	 return posts.stream()
+			     .map(post -> mapToDTO(post))
+			     .collect(Collectors.toList());
+			 
+	 
+	}
+
+
+	@Override
+	public List<PostDTO> getPostsByDate(Integer year, Integer month, Integer date) {
+		LocalDateTime startdDateTime = LocalDateTime.of(year, month,date,00,01);
+		LocalDateTime endDateTime= LocalDateTime.of(year, month,date,23,59);
+		
+		List<Post> posts = postRepo.findByUploadDateBetween(startdDateTime, endDateTime);
+		return posts.stream()
+					 .map(post -> mapToDTO(post))
+					 .collect(Collectors.toList());
+	}
+
 	
 	private Post mapToEntity(PostDTO postDto) {
 		Post post =new Post();
@@ -112,5 +139,6 @@ public class PostServiceImpl implements PostService{
 		return postDto;
 	}
 
+	
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.springboot_blogApp.DTO.PostDTO;
@@ -48,5 +49,19 @@ public class PostController {
 	@DeleteMapping("/{postId}")
 	public ResponseEntity<String> deletePostController(@PathVariable("postId") Long PostId){
 		return new ResponseEntity<String>(postService.deletePost(PostId),HttpStatus.OK);
+	}
+	
+	@GetMapping("/title")
+	public ResponseEntity<List<PostDTO>> getPostsByTitleController(@RequestParam String title){
+		return new ResponseEntity<List<PostDTO>>(postService.getPostByTitle(title),HttpStatus.FOUND);
+	}
+	
+	@GetMapping("/getpost/{year}/{month}/{date}")
+	public ResponseEntity<List<PostDTO>> getPostBydateController(
+			  @PathVariable("year") Integer year,
+			  @PathVariable("month")Integer month,
+			  @PathVariable("date")Integer date){
+				return new ResponseEntity<>(postService.getPostsByDate(year,month, date),HttpStatus.FOUND);
+		
 	}
 }
