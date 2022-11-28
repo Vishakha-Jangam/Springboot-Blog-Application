@@ -1,15 +1,20 @@
 package com.masai.springboot_blogApp.service.Impl;
 
+
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.masai.springboot_blogApp.DTO.PostDTO;
+import com.masai.springboot_blogApp.DTO.PostResponseDTO;
 import com.masai.springboot_blogApp.entity.Post;
 import com.masai.springboot_blogApp.exception.ResourceNotFoundException;
 import com.masai.springboot_blogApp.repository.PostRepository;
@@ -35,12 +40,33 @@ public class PostServiceImpl implements PostService{
 	}
 	
 	@Override
-	public List getAllPosts() {
-		 
-		List<Post> posts= postRepo.findAll();
-		return posts.stream()
-				    .map(post -> mapToDTO(post))
-				    .collect(Collectors.toList());
+	public PostResponseDTO getAllPosts(Integer pageNo, Integer pageSize, String sortBy,String sortType) {
+		
+		Sort sort= sortType.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
+													: Sort.by(sortBy).descending();
+		
+		
+		Pageable pageable =PageRequest.of(pageNo, pageSize,sort);
+		
+		Page<Post> page = postRepo.findAll(pageable);
+		
+		List<Post> posts=page.getContent();
+		
+		List<PostDTO> postDto = posts.stream()
+									 .map(post -> mapToDTO(post))
+									 .collect(Collectors.toList());
+		
+		PostResponseDTO postResponse = new PostResponseDTO();
+		postResponse.setContent(postDto);
+		postResponse.setPageNo(page.getNumber());
+		postResponse.setPageSize(page.getSize());
+		postResponse.setTotalElements(page.getTotalElements());
+		postResponse.setTotalPages(page.getTotalPages());
+		postResponse.setLast(page.isLast());
+		return postResponse;
+		
+		
+	
 	}
 
 	

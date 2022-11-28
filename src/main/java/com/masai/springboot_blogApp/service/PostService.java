@@ -1,6 +1,7 @@
 package com.masai.springboot_blogApp.service;
 
 import com.masai.springboot_blogApp.DTO.PostDTO;
+import com.masai.springboot_blogApp.DTO.PostResponseDTO;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public interface PostService {
 	
 	public PostDTO createNewPost (PostDTO postDto);
 	
-	public List<PostDTO> getAllPosts();
+	public PostResponseDTO getAllPosts(Integer pageNo, Integer pageSize, String sortBy, String sortType);
 	
 	public PostDTO getPostById(Long postId);
 	
