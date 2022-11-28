@@ -4,11 +4,17 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import com.masai.springboot_blogApp.blogDTO.PostDTO;
-import com.masai.springboot_blogApp.entity.Posts;
+import com.masai.springboot_blogApp.DTO.PostDTO;
+import com.masai.springboot_blogApp.entity.Post;
+import com.masai.springboot_blogApp.exception.ResourceNotFoundException;
 import com.masai.springboot_blogApp.repository.PostRepository;
 import com.masai.springboot_blogApp.service.PostService;
+
+
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -19,16 +25,69 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public PostDTO createNewPost(PostDTO postDto) {
 		
-		Posts post = mapToEntity(postDto);
+		Post post = mapToEntity(postDto);
 		post.setUploadDate(LocalDateTime.now());
-		Posts newPost = postRepo.save(post);
+		Post newPost = postRepo.save(post);
 		PostDTO newPostDto = mapToDTO(newPost);
 		
 		return newPostDto;
 	}
 	
-	private Posts mapToEntity(PostDTO postDto) {
-		Posts post =new Posts();
+	@Override
+	public List getAllPosts() {
+		 
+		List<Post> posts= postRepo.findAll();
+		return posts.stream()
+				    .map(post -> mapToDTO(post))
+				    .collect(Collectors.toList());
+	}
+
+	
+	@Override
+	public PostDTO getPostById(Long postId) {
+     	Post post=postRepo.findById(postId)
+     					  .orElseThrow(()-> new ResourceNotFoundException("Post","PostId",postId));
+   
+		return mapToDTO(post);
+	}
+
+
+	@Override
+	public PostDTO updatePost(PostDTO postDto, Long postId) {
+		
+		Post post = postRepo.findById(postId)
+							.orElseThrow(()->new ResourceNotFoundException("Post","PostId",postId));
+		
+		if(postDto.getTitle()!=null) {
+			post.setTitle(postDto.getTitle());
+		}
+		if(postDto.getContent()!=null) {
+			post.setContent(postDto.getContent());
+		}
+		if(postDto.getDescription()!=null) {
+			post.setDescription(postDto.getDescription());
+		}
+		
+		post.setUpdatedDate(LocalDateTime.now());
+		Post updatePost = postRepo.save(post);
+		
+		return mapToDTO(updatePost);
+	}
+
+
+	@Override
+	public String deletePost(Long postId) {
+		
+		Post post = postRepo.findById(postId)
+							.orElseThrow(()->new ResourceNotFoundException("Post","PostId",postId));
+		postRepo.delete(post);
+		return "Post Deleted Successfully....";
+	}
+
+
+	
+	private Post mapToEntity(PostDTO postDto) {
+		Post post =new Post();
 		
 		post.setPostId(postDto.getPostId());
 		post.setTitle(postDto.getTitle());
@@ -40,7 +99,7 @@ public class PostServiceImpl implements PostService{
 		return post;
 	}
 	
-	private PostDTO mapToDTO(Posts post) {
+	private PostDTO mapToDTO(Post post) {
 		PostDTO postDto =new PostDTO();
 		
 		postDto.setPostId(post.getPostId());
@@ -52,5 +111,6 @@ public class PostServiceImpl implements PostService{
 		
 		return postDto;
 	}
+
 
 }

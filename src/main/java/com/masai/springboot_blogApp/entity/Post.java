@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
-public class Posts {
+public class Post {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +33,13 @@ public class Posts {
 	private LocalDateTime updatedDate;
 
 
-	public Posts() {
+	public Post() {
 		super();
 
 	}
 
 
-	public Posts(Long postId, @NotNull String title, @NotNull String description, @NotNull String content,
+	public Post(Long postId, @NotNull String title, @NotNull String description, @NotNull String content,
 			@NotNull LocalDateTime uploadDate, LocalDateTime updatedDate) {
 		super();
 		this.postId = postId;

@@ -1,4 +1,4 @@
-package com.masai.springboot_blogApp.blogDTO;
+package com.masai.springboot_blogApp.DTO;
 
 import java.time.LocalDateTime;
 
