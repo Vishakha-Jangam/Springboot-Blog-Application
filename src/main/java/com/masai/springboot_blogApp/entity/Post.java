@@ -1,12 +1,15 @@
 package com.masai.springboot_blogApp.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +34,9 @@ public class Post {
 	private LocalDateTime uploadDate;
 	
 	private LocalDateTime updatedDate;
+	
+	 @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private Set<Comment> comments = new HashSet<>();
 
 
 	public Post() {
@@ -40,7 +46,7 @@ public class Post {
 
 
 	public Post(Long postId, @NotNull String title, @NotNull String description, @NotNull String content,
-			@NotNull LocalDateTime uploadDate, LocalDateTime updatedDate) {
+			LocalDateTime uploadDate, LocalDateTime updatedDate, Set<Comment> comments) {
 		super();
 		this.postId = postId;
 		this.title = title;
@@ -48,6 +54,7 @@ public class Post {
 		this.content = content;
 		this.uploadDate = uploadDate;
 		this.updatedDate = updatedDate;
+		this.comments = comments;
 	}
 
 
@@ -111,11 +118,23 @@ public class Post {
 	}
 
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", content=" + content
-				+ ", uploadDate=" + uploadDate + ", updatedDate=" + updatedDate + "]";
+				+ ", uploadDate=" + uploadDate + ", updatedDate=" + updatedDate + ", comments=" + comments + "]";
 	}
+
+
 	
 	
 }
