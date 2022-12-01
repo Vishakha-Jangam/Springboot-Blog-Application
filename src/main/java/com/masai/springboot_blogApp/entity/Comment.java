@@ -14,7 +14,7 @@ public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@NotNull
     private String name;
@@ -34,7 +34,7 @@ public class Comment {
 		
 	}
 
-	public Comment(long id, @NotNull String name, @NotNull String email, @NotNull String body, Post post) {
+	public Comment(Long id, @NotNull String name, @NotNull String email, @NotNull String body, Post post) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,11 +43,11 @@ public class Comment {
 		this.post = post;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
