@@ -14,10 +14,10 @@ public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long commentId;
 	
 	@NotNull
-    private String name;
+    private String commentName;
 	
 	@NotNull
     private String email;
@@ -34,29 +34,29 @@ public class Comment {
 		
 	}
 
-	public Comment(Long id, @NotNull String name, @NotNull String email, @NotNull String body, Post post) {
+	public Comment(Long commentId, @NotNull String commentName, @NotNull String email, @NotNull String body, Post post) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.commentId = commentId;
+		this.commentName = commentName;
 		this.email = email;
 		this.body = body;
 		this.post = post;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getcommentId() {
+		return commentId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setcommentId(Long commentId) {
+		this.commentId = commentId;
 	}
 
-	public String getName() {
-		return name;
+	public String getcommentName() {
+		return commentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setcommentName(String commentName) {
+		this.commentName = commentName;
 	}
 
 	public String getEmail() {
@@ -85,7 +85,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", name=" + name + ", email=" + email + ", body=" + body + ", post=" + post + "]";
+		return "Comment [commentId=" + commentId + ", commentName=" + commentName + ", email=" + email + ", body=" + body + ", post=" + post + "]";
 	}
 	
 	
