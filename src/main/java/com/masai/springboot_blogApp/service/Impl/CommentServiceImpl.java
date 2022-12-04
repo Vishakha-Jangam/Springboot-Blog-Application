@@ -4,6 +4,7 @@ package com.masai.springboot_blogApp.service.Impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.springboot_blogApp.DTO.CommentDTO;
@@ -50,6 +51,11 @@ public class CommentServiceImpl implements CommentService{
 				       .collect(Collectors.toList());
 	}
 	
+	@Override
+	public Comment getCommentById(Long commentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	private CommentDTO mapToDTO(Comment comment) {
 		CommentDTO commentDto = new CommentDTO();
@@ -68,6 +74,8 @@ public class CommentServiceImpl implements CommentService{
 		comment.setBody(commentDto.getBody());
 		return comment;
 	}
+
+	
 
 	
 	

@@ -35,7 +35,7 @@ public class CommentController {
 	}
 	
 	@GetMapping("/posts/{postId}/comments")
-	public List<CommentDTO> getAllCommentByPostId(@PathVariable("postId") long postId){
+	public List<CommentDTO> getAllCommentByPostId(@PathVariable("postId") Long postId){
 		return commentServ.getCommentsByPostId(postId);
 	}
 }
