@@ -9,7 +9,11 @@ public interface CommentService {
 
 	CommentDTO createComment(long postId, CommentDTO commentDto);
 
-	List<CommentDTO> getCommentsByPostId(long postId);
+	List<CommentDTO> getCommentsByPostId(Long postId);
 	
-	Comment getCommentById(Long commentId);
+	CommentDTO getCommentById(long postd,Long commentId);
+	
+	CommentDTO updateComment(long postId, long commentId, CommentDTO commentDto);
+	
+	String deleteComment(long postId, long commentId);
 }

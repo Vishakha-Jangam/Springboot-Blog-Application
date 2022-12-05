@@ -16,13 +16,11 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long commentId;
 	
-	@NotNull
+
     private String commentName;
-	
-	@NotNull
+
     private String email;
-	
-	@NotNull
+
     private String body;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

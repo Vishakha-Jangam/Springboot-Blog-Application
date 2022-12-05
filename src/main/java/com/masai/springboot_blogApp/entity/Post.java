@@ -40,8 +40,7 @@ public class Post {
 
 
 	public Post() {
-		super();
-
+	
 	}
 
 
