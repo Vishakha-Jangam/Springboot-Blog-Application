@@ -3,6 +3,7 @@ package com.masai.springboot_blogApp.service.Impl;
 
 import java.time.LocalDateTime;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -25,9 +26,16 @@ import com.masai.springboot_blogApp.service.PostService;
 @Service
 public class PostServiceImpl implements PostService{
 
-	@Autowired
 	private PostRepository postRepo;
 	
+	private ModelMapper mapper;
+	
+	
+	public PostServiceImpl(PostRepository postRepo, ModelMapper mapper) {
+		this.postRepo = postRepo;
+		this.mapper = mapper;
+	}
+
 	@Override
 	public PostDTO createNewPost(PostDTO postDto) {
 		
@@ -138,29 +146,31 @@ public class PostServiceImpl implements PostService{
 					 .collect(Collectors.toList());
 	}
 
-	
+	//---------------------------------------------------------------------
 	private Post mapToEntity(PostDTO postDto) {
-		Post post =new Post();
+		Post post =mapper.map(postDto, Post.class);
 		
-		post.setPostId(postDto.getPostId());
-		post.setTitle(postDto.getTitle());
-		post.setContent(postDto.getContent());
-		post.setDescription(postDto.getDescription());
-		post.setUpdatedDate(postDto.getUpdateDate());
-		post.setUploadDate(LocalDateTime.now());
+//		Post post =new Post();
+//		post.setPostId(postDto.getPostId());
+//		post.setTitle(postDto.getTitle());
+//		post.setContent(postDto.getContent());
+//		post.setDescription(postDto.getDescription());
+//		post.setUpdatedDate(postDto.getUpdateDate());
+//		post.setUploadDate(LocalDateTime.now());
 		
 		return post;
 	}
 	
 	private PostDTO mapToDTO(Post post) {
-		PostDTO postDto =new PostDTO();
+		PostDTO postDto = mapper.map(post, PostDTO.class);
 		
-		postDto.setPostId(post.getPostId());
-		postDto.setTitle(post.getTitle());
-		postDto.setContent(post.getContent());
-		postDto.setDescription(post.getDescription());
-		postDto.setUploadDate(post.getUploadDate());
-		postDto.setUpdateDate(post.getUpdatedDate());
+//		PostDTO postDto =new PostDTO();
+//		postDto.setPostId(post.getPostId());
+//		postDto.setTitle(post.getTitle());
+//		postDto.setContent(post.getContent());
+//		postDto.setDescription(post.getDescription());
+//		postDto.setUploadDate(post.getUploadDate());
+//		postDto.setUpdateDate(post.getUpdatedDate());
 		
 		return postDto;
 	}
