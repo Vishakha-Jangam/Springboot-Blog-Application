@@ -1,12 +1,24 @@
 package com.masai.springboot_blogApp.DTO;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public class CommentDTO {
 
 	private Long commentId;
+	
+	@NotEmpty(message ="Name should not be null or empty.")
 	private String commentName;
+	
+	@NotEmpty(message = "Email should not be null or empty.")
+	@Email
 	private String email;
+	
+	@NotEmpty
+	@Size(min=10, message = "Content body must be minimum 10 characters.")
 	private String body;
+	
 	public CommentDTO() {
 		super();
 		

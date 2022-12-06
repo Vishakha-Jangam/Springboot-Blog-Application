@@ -20,6 +20,8 @@ import com.masai.springboot_blogApp.DTO.PostResponseDTO;
 import com.masai.springboot_blogApp.service.PostService;
 import com.masai.springboot_blogApp.utils.PageSortConstants;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/posts")
@@ -29,7 +31,7 @@ public class PostController {
 	private PostService postService;
 	
 	@PostMapping("/")
-	public ResponseEntity<PostDTO> createNewPostController(@RequestBody PostDTO postDto){
+	public ResponseEntity<PostDTO> createNewPostController(@Valid @RequestBody PostDTO postDto){
 		return new ResponseEntity<>(postService.createNewPost(postDto),HttpStatus.CREATED);
 	}
 	
@@ -50,7 +52,7 @@ public class PostController {
 	}
 	
 	@PutMapping("/{postId}")
-	public ResponseEntity<PostDTO> updatePostController(@RequestBody PostDTO postDto, @PathVariable("postId") Long postId){
+	public ResponseEntity<PostDTO> updatePostController(@Valid @RequestBody PostDTO postDto, @PathVariable("postId") Long postId){
 		return new ResponseEntity<PostDTO>(postService.updatePost(postDto, postId),HttpStatus.OK);
 	}
 	
