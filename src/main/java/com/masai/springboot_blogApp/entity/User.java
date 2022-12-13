@@ -2,8 +2,7 @@ package com.masai.springboot_blogApp.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {

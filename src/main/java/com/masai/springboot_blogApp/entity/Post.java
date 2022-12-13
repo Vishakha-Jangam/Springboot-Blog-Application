@@ -4,15 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
@@ -41,7 +33,7 @@ public class Post {
 	}
 
 
-	public Post(Long postId, @NotNull String title, @NotNull String description, @NotNull String content,
+	public Post(Long postId,String title,String description,String content,
 			LocalDateTime uploadDate, LocalDateTime updatedDate, Set<Comment> comments) {
 		super();
 		this.postId = postId;

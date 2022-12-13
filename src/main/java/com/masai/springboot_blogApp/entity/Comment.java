@@ -1,13 +1,7 @@
 package com.masai.springboot_blogApp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+
 
 @Entity
 public class Comment {
@@ -32,7 +26,7 @@ public class Comment {
 		
 	}
 
-	public Comment(Long commentId, @NotNull String commentName, @NotNull String email, @NotNull String body, Post post) {
+	public Comment(Long commentId,String commentName,String email, String body, Post post) {
 		super();
 		this.commentId = commentId;
 		this.commentName = commentName;

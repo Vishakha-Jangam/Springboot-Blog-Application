@@ -3,8 +3,10 @@ package com.masai.springboot_blogApp.DTO;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+
 
 public class PostDTO {
 

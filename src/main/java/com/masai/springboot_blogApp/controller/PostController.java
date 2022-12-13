@@ -2,6 +2,8 @@ package com.masai.springboot_blogApp.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import com.masai.springboot_blogApp.DTO.PostResponseDTO;
 import com.masai.springboot_blogApp.service.PostService;
 import com.masai.springboot_blogApp.utils.PageSortConstants;
 
-import jakarta.validation.Valid;
 
 
 @RestController
@@ -31,7 +32,7 @@ public class PostController {
 	}
 	
 	
-	@GetMapping()
+	@GetMapping("/posts")
 	public ResponseEntity<PostResponseDTO> getAllPostsController(
 			@RequestParam(value = "pageNo", defaultValue=PageSortConstants.DEFAULT_PAGE_NO, required=false) Integer pageNo,
 			@RequestParam(value = "pageSize", defaultValue =PageSortConstants.DEFAULT_PAGE_SIZE, required=false) Integer pageSize,
