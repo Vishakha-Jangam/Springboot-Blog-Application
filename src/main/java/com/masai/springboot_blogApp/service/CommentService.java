@@ -3,7 +3,6 @@ package com.masai.springboot_blogApp.service;
 import java.util.List;
 
 import com.masai.springboot_blogApp.DTO.CommentDTO;
-import com.masai.springboot_blogApp.entity.Comment;
 
 public interface CommentService {
 

@@ -1,7 +1,6 @@
 package com.masai.springboot_blogApp.service;
 
-import com.masai.springboot_blogApp.DTO.PostDTO;
-import com.masai.springboot_blogApp.DTO.PostResponseDTO;
+import com.masai.springboot_blogApp.DTO.*;
 
 import java.util.List;
 
