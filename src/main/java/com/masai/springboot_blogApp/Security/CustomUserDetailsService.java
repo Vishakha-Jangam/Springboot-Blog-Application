@@ -16,12 +16,12 @@ import com.masai.springboot_blogApp.entity.User;
 import com.masai.springboot_blogApp.repository.UserRepository;
 
 @Service
-public class CustomUserDetailsServices implements UserDetailsService {
-
+public class CustomUserDetailsService implements UserDetailsService {
+    
 	private UserRepository userRepository;
 	
 	
-	public CustomUserDetailsServices(UserRepository userRepository) {
+	public CustomUserDetailsService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
@@ -41,5 +41,4 @@ public class CustomUserDetailsServices implements UserDetailsService {
 	private Collection<? extends GrantedAuthority> mapToRolesAuthority(Set<Roles> roles){
 	   return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
-
 }

@@ -1,6 +1,6 @@
 package com.masai.springboot_blogApp.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Roles {

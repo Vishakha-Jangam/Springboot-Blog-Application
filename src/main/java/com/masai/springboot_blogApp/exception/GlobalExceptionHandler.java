@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -53,5 +54,13 @@ public class GlobalExceptionHandler {
 		});
 		
 		return new ResponseEntity<Object>(errors,HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<ErrorDetails> AccessDeniedExceptionHandler(AccessDeniedException exception,
+																WebRequest webRequest){
+	    ErrorDetails error =new ErrorDetails(new Date(), exception.getMessage(), webRequest.getDescription(false));
+	    return new ResponseEntity<ErrorDetails>(error,HttpStatus.UNAUTHORIZED);
 	}
 }

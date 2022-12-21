@@ -1,8 +1,6 @@
 package com.masai.springboot_blogApp.DTO;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class CommentDTO {
 

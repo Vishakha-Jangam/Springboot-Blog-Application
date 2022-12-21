@@ -2,7 +2,7 @@ package com.masai.springboot_blogApp.entity;
 
 import java.util.Set;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {

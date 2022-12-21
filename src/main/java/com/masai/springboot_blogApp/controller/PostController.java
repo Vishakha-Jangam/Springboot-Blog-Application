@@ -2,7 +2,7 @@ package com.masai.springboot_blogApp.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -24,8 +24,8 @@ public class PostController {
 	private PostService postService;
 
 	
-	@PostMapping("/posts")
 	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/posts")
 	public ResponseEntity<PostDTO> createNewPostController(@Valid @RequestBody PostDTO postDto){
 		return new ResponseEntity<>(postService.createNewPost(postDto),HttpStatus.CREATED);
 	}
@@ -46,16 +46,14 @@ public class PostController {
 		return new ResponseEntity<PostDTO>(postService.getPostById(postId),HttpStatus.FOUND);
 	}
 	
-	
-	@PutMapping("/posts/{postId}")
 	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/posts/{postId}")
 	public ResponseEntity<PostDTO> updatePostController(@Valid @RequestBody PostDTO postDto, @PathVariable("postId") Long postId){
 		return new ResponseEntity<PostDTO>(postService.updatePost(postDto, postId),HttpStatus.OK);
 	}
 	
-	
-	@DeleteMapping("/{postId}")
 	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/{postId}")
 	public ResponseEntity<String> deletePostController(@PathVariable("postId") Long PostId){
 		return new ResponseEntity<String>(postService.deletePost(PostId),HttpStatus.OK);
 	}

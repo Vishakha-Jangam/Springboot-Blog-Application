@@ -3,7 +3,7 @@ package com.masai.springboot_blogApp.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
