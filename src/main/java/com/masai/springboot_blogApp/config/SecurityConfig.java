@@ -25,6 +25,7 @@ public class SecurityConfig{
 		this.userDetailsService=userDetailsService;
 	}
 	
+	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
@@ -45,6 +46,7 @@ public class SecurityConfig{
 		authorize.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
 		.anyRequest().authenticated()
 		).httpBasic(Customizer.withDefaults());
+		
 		return http.build();
 		
 	}
