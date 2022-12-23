@@ -29,7 +29,7 @@ public class LoginController {
 	}
 	
 	
-	
+	@PostMapping(value = {"/register","/signup"})
 	public ResponseEntity<String> UserRegisterHandler(@RequestBody RegisterDTO registerDTO){
 		String response = authService.userSignUp(registerDTO);
 		return new ResponseEntity<String>(response,HttpStatus.CREATED);
