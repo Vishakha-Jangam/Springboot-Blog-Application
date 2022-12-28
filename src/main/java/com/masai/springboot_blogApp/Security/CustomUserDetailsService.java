@@ -10,8 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.masai.springboot_blogApp.entity.Roles;
-import com.masai.springboot_blogApp.entity.User;
+import com.masai.springboot_blogApp.entity.*;
 import com.masai.springboot_blogApp.repository.UserRepository;
 
 @Service
