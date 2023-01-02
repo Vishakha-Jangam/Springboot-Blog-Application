@@ -1,7 +1,6 @@
 package com.masai.springboot_blogApp.service;
 
-import com.masai.springboot_blogApp.DTO.LoginDTO;
-import com.masai.springboot_blogApp.DTO.RegisterDTO;
+import com.masai.springboot_blogApp.DTO.*;
 
 public interface AuthService {
 

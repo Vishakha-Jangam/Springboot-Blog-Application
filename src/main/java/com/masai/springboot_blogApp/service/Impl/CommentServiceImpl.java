@@ -10,12 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.masai.springboot_blogApp.DTO.CommentDTO;
-import com.masai.springboot_blogApp.entity.Comment;
-import com.masai.springboot_blogApp.entity.Post;
-import com.masai.springboot_blogApp.exception.BlogApiException;
-import com.masai.springboot_blogApp.exception.ResourceNotFoundException;
-import com.masai.springboot_blogApp.repository.CommentRepository;
-import com.masai.springboot_blogApp.repository.PostRepository;
+import com.masai.springboot_blogApp.entity.*;
+import com.masai.springboot_blogApp.exception.*;
+import com.masai.springboot_blogApp.repository.*;
 import com.masai.springboot_blogApp.service.CommentService;
 
 @Service
