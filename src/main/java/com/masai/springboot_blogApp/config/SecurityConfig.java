@@ -5,24 +5,36 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.masai.springboot_blogApp.Security.JwtAuthenticationEntryPoint;
+import com.masai.springboot_blogApp.Security.JwtAuthenticationFilter;
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig{
 	
-	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	public SecurityConfig(UserDetailsService userDetailsService) {
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	
+	public SecurityConfig(UserDetailsService userDetailsService,
+			JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+			JwtAuthenticationFilter jwtAuthenticationFilter) {
 		this.userDetailsService=userDetailsService;
+		this.jwtAuthenticationEntryPoint=jwtAuthenticationEntryPoint;
+		this.jwtAuthenticationFilter=jwtAuthenticationFilter;
 	}
 	
 	@Bean
@@ -46,7 +58,14 @@ public class SecurityConfig{
 		authorize.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
 		.requestMatchers("/api/auth/**").permitAll()
 		.anyRequest().authenticated()
-		);
+		).exceptionHandling(exception ->
+		exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+		.sessionManagement(session -> session.sessionCreationPolicy
+				(SessionCreationPolicy.STATELESS));
+		
+		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationToken.class);
+		
+		
 		
 		return http.build();
 		
