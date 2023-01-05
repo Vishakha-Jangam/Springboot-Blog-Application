@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.springboot_blogApp.DTO.LoginDTO;
 import com.masai.springboot_blogApp.DTO.RegisterDTO;
+import com.masai.springboot_blogApp.Security.JwtTokenProvider;
 import com.masai.springboot_blogApp.entity.Roles;
 import com.masai.springboot_blogApp.entity.User;
 import com.masai.springboot_blogApp.exception.BlogApiException;
@@ -26,15 +27,18 @@ public class AuthServiceImpl implements AuthService{
 	private UserRepository userRepository;
 	private RolesRepository rolesRepository;
 	private PasswordEncoder passwordEncoder;
+	private JwtTokenProvider jwtTokenProvider;
 	
 	
 	public AuthServiceImpl(AuthenticationManager authenticationManager, UserRepository userRepository,
-			RolesRepository rolesRepository, PasswordEncoder passwordEncoder) {
+			RolesRepository rolesRepository, PasswordEncoder passwordEncoder,
+			JwtTokenProvider jwtTokenProvider) {
 
 		this.authenticationManager = authenticationManager;
 		this.userRepository = userRepository;
 		this.rolesRepository = rolesRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenProvider=jwtTokenProvider;
 	}
 
 
@@ -45,8 +49,10 @@ public class AuthServiceImpl implements AuthService{
 				new UsernamePasswordAuthenticationToken
 				(loginDto.getUserNameOrEmail(), loginDto.getPassword()));
 	
+	String token = jwtTokenProvider.generateToken(authentication);
+	
 	SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "User Logged in Successfully!...";
+		return token;
 	}
 
 
