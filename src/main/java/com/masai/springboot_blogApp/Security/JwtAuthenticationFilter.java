@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		
 	//Validate Token 
 		
-		if(StringUtils.isEmpty(token) && jwtTokenProvider.validateToken(token)) {
+		if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
 			//get userName from token
 
 			String userName = jwtTokenProvider.getUserName(token);
@@ -65,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		
 		String bearerToken = request.getHeader("Authorization");
 		
-		if(StringUtils.isEmpty(bearerToken) && bearerToken.startsWith("Bearer ")) {
+		if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
 			return bearerToken.substring(7, bearerToken.length());
 		}
 		return null;
