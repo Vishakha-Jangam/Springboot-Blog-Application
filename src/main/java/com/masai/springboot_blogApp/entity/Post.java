@@ -25,6 +25,10 @@ public class Post {
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Comment> comments = new HashSet<>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id")
+	private Category category;
 
 
 	public Post() {
@@ -32,8 +36,8 @@ public class Post {
 	}
 
 
-	public Post(Long postId,String title,String description,String content,
-			LocalDateTime uploadDate, LocalDateTime updatedDate, Set<Comment> comments) {
+	public Post(Long postId, String title, String description, String content, LocalDateTime uploadDate,
+			LocalDateTime updatedDate, Set<Comment> comments, Category category) {
 		super();
 		this.postId = postId;
 		this.title = title;
@@ -42,6 +46,7 @@ public class Post {
 		this.uploadDate = uploadDate;
 		this.updatedDate = updatedDate;
 		this.comments = comments;
+		this.category = category;
 	}
 
 
@@ -115,10 +120,21 @@ public class Post {
 	}
 
 
+	public Category getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", title=" + title + ", description=" + description + ", content=" + content
-				+ ", uploadDate=" + uploadDate + ", updatedDate=" + updatedDate + ", comments=" + comments + "]";
+				+ ", uploadDate=" + uploadDate + ", updatedDate=" + updatedDate + ", comments=" + comments
+				+ ", category=" + category + "]";
 	}
 
 
