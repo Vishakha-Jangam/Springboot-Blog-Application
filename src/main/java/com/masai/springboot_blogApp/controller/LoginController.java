@@ -23,21 +23,23 @@ public class LoginController {
 		this.authService = authService;
 	}
 	
-	@PostMapping(value = {"/login","/signin"})
-	public ResponseEntity<JwtAuthResponse> UserLoginHandler(@RequestBody LoginDTO loginDTO){
-		String token = authService.userLogin(loginDTO);
-		
-		JwtAuthResponse jwtAuthResponse=new JwtAuthResponse();
-		jwtAuthResponse.setAccessToken(token);
-		return ResponseEntity.ok(jwtAuthResponse);
-	}
-	
-	
-	@PostMapping(value = {"/register","/signup"})
-	public ResponseEntity<String> UserRegisterHandler(@RequestBody RegisterDTO registerDTO){
-		String response = authService.userSignUp(registerDTO);
-		return new ResponseEntity<String>(response,HttpStatus.CREATED);
-	}
+	  // Build Login REST API
+    @PostMapping(value = {"/login", "/signin"})
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDTO loginDto){
+        String token = authService.userLogin(loginDto);
+
+        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return ResponseEntity.ok(jwtAuthResponse);
+    }
+
+    // Build Register REST API
+    @PostMapping(value = {"/register", "/signup"})
+    public ResponseEntity<String> register(@RequestBody RegisterDTO registerDto){
+        String response = authService.userSignUp(registerDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 	
 	
 }

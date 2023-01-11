@@ -5,11 +5,8 @@ public class JwtAuthResponse {
 	private String accessToken;
 	private String tokenType = "Bearer";
 	public JwtAuthResponse() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public JwtAuthResponse(String accessToken, String tokenType) {
-		super();
 		this.accessToken = accessToken;
 		this.tokenType = tokenType;
 	}
