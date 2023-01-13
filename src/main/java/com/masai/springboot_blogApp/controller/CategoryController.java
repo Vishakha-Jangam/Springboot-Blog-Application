@@ -1,8 +1,12 @@
 package com.masai.springboot_blogApp.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +32,15 @@ public class CategoryController {
 		return new ResponseEntity<CategoryDTO>(savedCategory,HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/get/{catId}")
+	public ResponseEntity<CategoryDTO> getCategoryHandle(@PathVariable("catId") Long catId){
+		CategoryDTO categoryDTO =  categoryService.getCategory(catId);
+		return ResponseEntity.ok(categoryDTO);
+	}
 
+	@GetMapping("/getAll")
+	public ResponseEntity<List<CategoryDTO>> getAllCategoriesHandle(){
+		List<CategoryDTO> list = categoryService.getAllCategories();
+		return ResponseEntity.ok(list);
+	}
 }
