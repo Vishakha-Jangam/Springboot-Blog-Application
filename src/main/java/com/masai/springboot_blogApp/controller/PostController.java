@@ -10,9 +10,7 @@ import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.masai.springboot_blogApp.DTO.PostDTO;
-import com.masai.springboot_blogApp.DTO.PostDTOv2;
-import com.masai.springboot_blogApp.DTO.PostResponseDTO;
+import com.masai.springboot_blogApp.DTO.*;
 import com.masai.springboot_blogApp.service.PostService;
 import com.masai.springboot_blogApp.utils.PageSortConstants;
 
