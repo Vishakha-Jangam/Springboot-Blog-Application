@@ -4,15 +4,13 @@ package com.masai.springboot_blogApp.service.Impl;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.masai.springboot_blogApp.DTO.PostDTO;
-import com.masai.springboot_blogApp.DTO.PostResponseDTO;
+import com.masai.springboot_blogApp.DTO.*;
 import com.masai.springboot_blogApp.entity.Category;
 import com.masai.springboot_blogApp.entity.Post;
 import com.masai.springboot_blogApp.exception.ResourceNotFoundException;
